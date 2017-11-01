@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * Created by Li Yang on 1/11/2017.
@@ -14,35 +15,27 @@ import java.io.FileReader;
  */
 
 public class FileExtract {
-    private String filetype;
-    private int numVar, numclauses;
-    private int lita, litb;
 
-    public String getFiletype(){
-        return this.filetype;
-    }
+    public static void main(String[] args) {
+        String filetype;
+        int numVar, numclauses;
+        String line=null;
+        String path="Test";
 
-    public int getNumVar(){
-        return this.numVar;
-    }
-
-    public int getNumclauses(){
-        return this.numclauses;
-    }
-
-    public int getLita(){
-        return this.lita;
-    }
-    public int getLitb(){
-        return this.litb;
-    }
-
-    public FileExtract(String path){
-        String line;
         try{
             FileReader file = new FileReader(path);
             BufferedReader bfile = new BufferedReader(file);
-            line = bfile.readLine();
+            try {
+                line = bfile.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //varibles for Sat
+            int lita, litb;
+            Graph implicatGraph=new Graph();
+            Graph revGraph =new Graph();
+            TwoSATSolver twoSat =new TwoSATSolver();
             while(line != null){
                 // Comment Line
                 if(line.charAt(0) == 'c') {
@@ -60,8 +53,10 @@ public class FileExtract {
                     String[] current=line.split(" ");
                     lita =Integer.parseInt(current[0]);
                     litb=Integer.parseInt(current[1]);
+                    twoSat.addLine(lita,litb,implicatGraph,revGraph);
                 }
             }
+            System.out.println(twoSat.isSat());
         }
         catch(FileNotFoundException e){
             System.out.println("Error: File Not Found. Please Load File");
