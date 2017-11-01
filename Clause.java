@@ -13,5 +13,4 @@ public class Clause {
         Collections.addAll(clauses_Literal,a.neg(),b,b.neg(),a);
         return clauses_Literal;
     }
-
 }

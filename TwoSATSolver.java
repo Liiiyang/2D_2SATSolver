@@ -6,7 +6,7 @@ import java.util.*;
 public class TwoSATSolver {
     TwoSATSolver(){}
 
-    public void addLine(int lita, int litb, Graph implictGraph, Graph revGraph) /* Remove1??? throws InvalidInputException*/ {
+    public void addLine(int lita, int litb, Graph implictGraph, Graph revGraph){
         //Boolean is for pos or negative
 
         /* Remove1???
@@ -80,15 +80,27 @@ public class TwoSATSolver {
         implictGraph.addEdge(clauses_Literal.get(0), clauses_Literal.get(1));
         implictGraph.addEdge(clauses_Literal.get(2), clauses_Literal.get(3));
 
+        //add postive and negative nodes and edges for reverse graph used in SCC
+        revGraph.addNode(a0);
+        revGraph.addNode(a1);
+        revGraph.addNode(b0);
+        revGraph.addNode(b1);
+        revGraph.addEdge(clauses_Literal.get(1), clauses_Literal.get(0));
+        revGraph.addEdge(clauses_Literal.get(3), clauses_Literal.get(2));
 
+
+
+    }
+    public void SCC(Graph revGraph , Graph implicitGraph){
+        // SCC.
+        // SCC.dfs
+        // SCC.getConnectedArray    [1,4],[1,2,3,4,5],[1,2,3,45,6]
+        // isSat loop through all literal and make sure no repeated Literal,,,   Make sure neg and normal are not int he same SCC.
+        // Then tranverse down the list.
     }
     public boolean isSat(){
         return false;
     }
+
 }
-    /*
-    class InvalidInputException extends Exception {
-        InvalidInputException() {
-            System.out.println("INVALID INPUT");
-        }
-    }*/
+

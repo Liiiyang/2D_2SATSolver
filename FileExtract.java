@@ -33,7 +33,7 @@ public class FileExtract {
 
             //varibles for Sat
             int lita, litb;
-            Graph implicatGraph=new Graph();
+            Graph implicitGraph=new Graph();
             Graph revGraph =new Graph();
             TwoSATSolver twoSat =new TwoSATSolver();
             while(line != null){
@@ -53,7 +53,7 @@ public class FileExtract {
                     String[] current=line.split(" ");
                     lita =Integer.parseInt(current[0]);
                     litb=Integer.parseInt(current[1]);
-                    twoSat.addLine(lita,litb,implicatGraph,revGraph);
+                    twoSat.addLine(lita,litb,implicitGraph,revGraph);
                 }
             }
             System.out.println(twoSat.isSat());

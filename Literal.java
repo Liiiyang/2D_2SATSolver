@@ -4,6 +4,7 @@ import java.util.HashMap;
 public class Literal {
     private int value;
     private boolean p;
+    private boolean visted=false;
     private static HashMap<Integer,ArrayList<Literal>> litHistory;
 
     Literal(int value, boolean p) {
@@ -27,6 +28,11 @@ public class Literal {
         return litHistory;
     }
 
+    public boolean hasVisted() {
+        return visted;
+    }
 
-
+    public void resetVisted(boolean visted) {
+        this.visted = visted;
+    }
 }
