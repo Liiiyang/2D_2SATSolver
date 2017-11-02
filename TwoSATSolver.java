@@ -85,7 +85,7 @@ public class TwoSATSolver {
 
 
     }
-    public void SCC(Graph revGraph , Graph implicitGraph){
+    public void makeSCC(Graph revGraph , Graph implicitGraph){
         // SCC.
         // SCC.dfs()
 
@@ -95,7 +95,37 @@ public class TwoSATSolver {
 
         // SCC.getConnectedArray    [1,4],[1,2,3,4,5],[1,2,3,45,6]
         // isSat loop through all literal and make sure no repeated Literal,,,   Make sure neg and normal are not int he same SCC.
-        // Then Tranverse down the list.
+
+        /* Test Case for SCC to make sure Test Case transverse down the literals ,Literal 1->4, 4->1 , 3->2
+        Literal a1=new Literal(21,true);
+        Literal a4=new Literal(1,true);
+
+        //Literal a4=new Literal(1,true);
+        Literal a_1=new Literal(21,false);
+
+        Literal a3=new Literal(1,true);
+        Literal a2=new Literal(1,true);
+        //Literal a1=new Literal(1,true);
+        Literal a9=new Literal(1,true);
+
+        ArrayList<Literal> test1 = new ArrayList<>();
+        Collections.addAll(test1,a_1,a1);
+
+        ArrayList<Literal> litHis= new ArrayList<>();
+        Collections.addAll(litHis,a1,a_1);
+        litHistory.put(21,litHis);
+
+        ArrayList<Literal> test2 = new ArrayList<>();
+        Collections.addAll(test2,a4,a_1);
+        ArrayList<Literal> test3 = new ArrayList<>();
+        Collections.addAll(test3,a3,a2,a1,a9);
+        ArrayList<ArrayList<Literal>> test =new ArrayList<ArrayList<Literal>>();
+        Collections.addAll(test,test1,test2,test3);
+
+        System.out.println("sat:"+ SCC.transversingArrays(test));
+        */
+
+        // / Then Tranverse down the list. send in individual and check that its not
     }
     public static boolean isSat(){
         return false;

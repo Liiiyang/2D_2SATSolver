@@ -53,6 +53,7 @@ public class FileExtract {
                 }
                 line=bfile.readLine();
             }
+            twoSat.makeSCC(revGraph,implicitGraph);
             System.out.println(TwoSATSolver.isSat());
         }
         catch(FileNotFoundException e){
