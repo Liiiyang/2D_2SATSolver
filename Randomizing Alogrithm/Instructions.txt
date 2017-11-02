@@ -1,0 +1,3 @@
+This is the 2- SAT Solver that uses a Randomizing Algorithm. 
+To run the solver, change String path="C:\\Users\\Li Yang\\Desktop\\test4.cnf"; in FileExtract.Java, to the path that your cnf file is at. 
+Run FileExtract.Java to solve your 2-SAT Problems
