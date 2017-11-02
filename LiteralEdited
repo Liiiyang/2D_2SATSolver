@@ -1,0 +1,68 @@
+package com.example.victorlee.a2sat;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class Literal {
+    private int value;
+    private boolean p;
+    private boolean visited=false;
+    private static HashMap<Integer,ArrayList<Literal>> litHistory;
+    private String name;
+    private List<Literal> neighbourList;
+
+    public Literal(String name){
+        this.name=name;
+        this.neighbourList = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public List<Literal> getNeighbourList() {
+        return neighbourList;
+    }
+
+    public void setNeighbourList(List<Literal> neighbourList) {
+        this.neighbourList = neighbourList;
+    }
+
+    public void addNeighbour(Literal vertex){
+        this.neighbourList.add(vertex);
+    }
+    Literal(int value, boolean p) {
+        this.p=p;
+        this.value=value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public boolean getP() {
+        return p;
+    }
+    public Literal neg(){
+        // returning the negation from Hashmap: litHistory
+        if(p==true){return litHistory.get(value).get(1);}
+        else {return litHistory.get(value).get(0);}
+    }
+    public HashMap<Integer, ArrayList<Literal>> getLitHistory(){
+        return litHistory;
+    }
+
+}
