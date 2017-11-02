@@ -1,8 +1,4 @@
-package com.example.victorlee.a2sat;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 public class SCC {
@@ -11,25 +7,26 @@ public class SCC {
       //  return AdjList;
 //}
     private Stack<Literal> stack;
-
+    ArrayList<Literal> e;
+    ArrayList<Literal> eList;
+    ArrayList<ArrayList<Literal>> newList;
 
     public SCC(){
         this.stack = new Stack<>();
+        e = new ArrayList<Literal>();
+        eList = new ArrayList<Literal>();
+        newList = new ArrayList<ArrayList<Literal>>();
     }
 
     public void dfs(Graph implicitGraph , Graph revGraph){
         //run dfs and return a stack for first part
-        ArrayList<Literal> e = new ArrayList<Literal>();
-        ArrayList<Literal> eList = new ArrayList<Literal>();
-        ArrayList<ArrayList<Literal>> newList = new ArrayList<ArrayList<Literal>>();
+
             for ( Literal v : implicitGraph.getAdjList().keySet()) {
                 if (!v.isVisited()) {
                     v.visited();
                     dfsWithStack(v,implicitGraph,e);
                 }
             }
-        findingSCC(e, revGraph,eList ,newList);
-        transversingArrays(newList);
      }
 
     private void dfsWithStack(Literal rootVertex, Graph implicitGraph, ArrayList e) {
@@ -37,6 +34,7 @@ public class SCC {
         while (!stack.isEmpty()) {
             Literal actualVertex = this.stack.pop();
             e.add(actualVertex);
+            System.out.println(actualVertex.getValue()+" "+actualVertex.getP()+"");
             //System.out.println(actualVertex + " ");
             for (Literal v : implicitGraph.getAdjList().get(actualVertex)) {
                 if (!v.isVisited()) {
@@ -45,25 +43,26 @@ public class SCC {
                 }
             }
         }
+        System.out.println("________________________________________________________________");
     }
 
-    private void findingSCC(ArrayList<Literal> e, Graph revGraph,ArrayList<Literal> eList,ArrayList<ArrayList<Literal>> newList){
+    public ArrayList<ArrayList<Literal> > findingSCC(Graph revGraph){
         revGraph.resetAllVisited();
+        ArrayList<Literal> eList1 = new ArrayList<>();
         for (int i=0; i<e.size(); i++){
             Object secondVertex = e.get(i);
             if (!(e.get(i).isVisited())) {
                 for (Literal v : revGraph.getAdjList().get(secondVertex)) {
                     if (!v.isVisited()) {
-                        eList.add(v);
+                        eList1.add(v);
                         v.visited();
                     }
                 }
-
-                newList.add(eList);
-                eList.clear();
+                //revGraph.resetAllVisited();
             }
-
         }
+        newList.add((ArrayList<Literal>) eList1.clone());
+        return newList;
     }
 
     public static boolean transversingArrays(ArrayList<ArrayList<Literal>> sccArrays){
@@ -77,6 +76,7 @@ public class SCC {
     public static boolean checkSat(ArrayList<Literal> arrayList){
         for (Literal a:arrayList){
             //add the true false solution
+            System.out.println(a.getValue());
             for(Literal b:arrayList)
             { if (a.neg().equals(b))return false;}
         }

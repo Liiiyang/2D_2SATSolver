@@ -24,13 +24,13 @@ public class Literal {
         if(p==true){
             return litHistory.get(value).get(1);}
         else {
-            return litHistory.get((int)value).get(1);}
+            return litHistory.get(value).get(0);}
     }
     public HashMap<Integer, ArrayList<Literal>> getLitHistory(){
         return litHistory;
     }
 
-    public void Visited() {
+    public void visited() {
         this.visited=true;
     }
 

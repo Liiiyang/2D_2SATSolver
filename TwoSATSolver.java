@@ -74,6 +74,13 @@ public class TwoSATSolver {
         implicitGraph.addEdge(clauses_Literal.get(0), clauses_Literal.get(1));
         implicitGraph.addEdge(clauses_Literal.get(2), clauses_Literal.get(3));
 
+        //****trouble shooting printing implicitGraph inputs
+        System.out.println(" adding edge :"+clauses_Literal.get(0).getValue()+""+clauses_Literal.get(0).getP());
+        System.out.println(" to :"+clauses_Literal.get(1).getValue()+""+clauses_Literal.get(1).getP());
+        System.out.println(" adding edge :"+clauses_Literal.get(2).getValue()+""+clauses_Literal.get(2).getP());
+        System.out.println(" to :"+clauses_Literal.get(3).getValue()+""+clauses_Literal.get(3).getP());
+        //////
+
         //add postive and negative nodes and edges for reverse graph used in SCC
         revGraph.addNode(a0);
         revGraph.addNode(a1);
@@ -82,15 +89,35 @@ public class TwoSATSolver {
         revGraph.addEdge(clauses_Literal.get(1), clauses_Literal.get(0));
         revGraph.addEdge(clauses_Literal.get(3), clauses_Literal.get(2));
 
+        //****trouble shooting printing revGraph inputs
+        /*
+        revGraph.addEdge(clauses_Literal.get(2), clauses_Literal.get(3));
 
+        System.out.println(" adding edge :"+clauses_Literal.get(1).getValue()+""+clauses_Literal.get(1).getP());
+        System.out.println(" to :"+clauses_Literal.get(0).getValue()+""+clauses_Literal.get(0).getP());
+        System.out.println(" adding edge :"+clauses_Literal.get(3).getValue()+""+clauses_Literal.get(3).getP());
+        System.out.println(" to :"+clauses_Literal.get(2).getValue()+""+clauses_Literal.get(2).getP());
+        */
 
     }
     public void makeSCC(Graph revGraph , Graph implicitGraph){
         // SCC.
-        // SCC.dfs()
+        SCC sccTest=new SCC();
+        sccTest.dfs(revGraph,implicitGraph);
 
         //reset rev graph visited for the literals
-        revGraph.resetAllVisited();
+        ArrayList<ArrayList<Literal>> newList=sccTest.findingSCC(revGraph);
+
+        //System.out.println("Printing New List SCCs");
+        for(ArrayList<Literal> a:newList){
+            for(Literal b:a){
+                System.out.println(b.getValue());
+                System.out.println("?mm");
+            }
+        }
+
+
+        System.out.println(sccTest.transversingArrays(newList));
 
 
         // SCC.getConnectedArray    [1,4],[1,2,3,4,5],[1,2,3,45,6]
