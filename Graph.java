@@ -39,6 +39,8 @@ public class Graph {
         AdjList.get(node1).add(node2);
     }
 
+
+
     /* Removes edge from two nodes in the graph, returns error if the edge
        is missing
      */
@@ -65,5 +67,11 @@ public class Graph {
 
     public Map<Literal, Set<Literal>> getAdjList() {
         return AdjList;
+    }
+    public void resetAllVisited(){
+        for (Literal x:AdjList.keySet()){
+            x.resetAllVisited();
+            break;
+        }
     }
 }

@@ -4,8 +4,8 @@ import java.util.HashMap;
 public class Literal {
     private int value;
     private boolean p;
-    private boolean visted=false;
-    private static HashMap<Integer,ArrayList<Literal>> litHistory;
+    private boolean visited=false;
+    public static HashMap<Integer,ArrayList<Literal>> litHistory=new HashMap<Integer, ArrayList<Literal>>(FileExtract.numVar+1, 1);
 
     Literal(int value, boolean p) {
         this.p=p;
@@ -21,18 +21,35 @@ public class Literal {
     }
     public Literal neg(){
         // returning the negation from Hashmap: litHistory
-        if(p==true){return litHistory.get(value).get(1);}
-        else {return litHistory.get(value).get(0);}
+        if(p==true){
+            return litHistory.get(value).get(1);}
+        else {
+            return litHistory.get((int)value).get(1);}
     }
     public HashMap<Integer, ArrayList<Literal>> getLitHistory(){
         return litHistory;
     }
 
-    public boolean hasVisted() {
-        return visted;
+    public void Visited() {
+        this.visited=true;
     }
 
-    public void resetVisted(boolean visted) {
-        this.visted = visted;
+    public void resetVisited() {
+        this.visited = false;
     }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void resetAllVisited(){
+        for (int x:litHistory.keySet()){
+            Literal pos=litHistory.get(x).get(0);
+            Literal neg=litHistory.get(x).get(1);
+            pos.resetVisited();
+            neg.resetVisited();
+        }
+    }
+
+
 }
