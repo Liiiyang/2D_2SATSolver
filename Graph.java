@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class Graph {
     /* Maps the Nodes in the graph to sets of outgoing edges */
-    private final HashMap<Literal, Set<Literal>> AdjList = new HashMap<>();
+    private HashMap<Literal, Set<Literal>> AdjList = new HashMap<>();
 
     /* Adds a new node to the graph, returns false if the node already exists */
     public boolean addNode(Literal node) {

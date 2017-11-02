@@ -21,11 +21,14 @@ public class Literal {
     }
     public Literal neg(){
         // returning the negation from Hashmap: litHistory
-        if(p==true){
-            return litHistory.get(value).get(1);}
-        else {
-            return litHistory.get(value).get(0);}
+        for (Literal a:litHistory.get(value)) {
+            if (!a.equals(this)) {
+                return a;
+            }
+        }
+        return this;
     }
+
     public HashMap<Integer, ArrayList<Literal>> getLitHistory(){
         return litHistory;
     }

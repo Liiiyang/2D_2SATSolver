@@ -4,7 +4,6 @@
 import java.util.*;
 
 public class TwoSATSolver {
-    private static HashMap<Integer, ArrayList<Literal>> litHistory=Literal.litHistory;; // Setting to the Hashmap in Literal Lit History
     public TwoSATSolver(){
     }
 
@@ -17,8 +16,19 @@ public class TwoSATSolver {
         a_sign = (lita > 0);
         b_sign = (litb > 0);
         //System.out.println(litHistory=a0.getLitHistory());
-        if (litHistory.containsKey(lita)) {
-            ArrayList<Literal> currentList = litHistory.get(lita);
+        boolean test1 = false;
+        boolean test2=false;
+        for( int x:Literal.litHistory.keySet()){
+            if(x== Math.abs(lita)){
+                test1=true;
+            }
+            if(x==Math.abs(litb)){
+                test2=true;
+            }
+        }
+        if (test1 == true) {
+            System.out.println("duplicate key");
+            ArrayList<Literal> currentList = Literal.litHistory.get(Math.abs(lita));
             a0 = currentList.get(0);
             a1 = currentList.get(1);
         } else {
@@ -29,10 +39,12 @@ public class TwoSATSolver {
             //enter in hashMap litHistory
             ArrayList<Literal> a_ArrayList = new ArrayList<Literal>();
             Collections.addAll(a_ArrayList, a0, a1);
-            litHistory.put(Math.abs(lita), a_ArrayList);
+            Literal.litHistory.put(Math.abs(lita), a_ArrayList);
         }
-        if (litHistory.containsKey((int) litb)) {
-            ArrayList<Literal> currentList = litHistory.get(litb);
+
+        if (test2==true) {
+            System.out.println("duplicate litb");
+            ArrayList<Literal> currentList = Literal.litHistory.get(Math.abs(litb));
             b0 = currentList.get(0);
             b1 = currentList.get(1);
         } else {
@@ -43,7 +55,7 @@ public class TwoSATSolver {
             //enter in hashMap litHistory
             ArrayList<Literal> b_ArrayList = new ArrayList<Literal>();
             Collections.addAll(b_ArrayList, b0, b1);
-            litHistory.put(Math.abs(litb), b_ArrayList);
+            Literal.litHistory.put(Math.abs(litb), b_ArrayList);
         }
 
         //Selecting Correct Literal setting to a and b
@@ -64,13 +76,16 @@ public class TwoSATSolver {
         Clause c = new Clause(a, b);
 
         //add postive and negative nodes
+        ArrayList<Literal> clauses_Literal = c.implies();  // returns edges - Start and end points in [Literal1_start,Literal1_end,
         implicitGraph.addNode(a0);
         implicitGraph.addNode(a1);
         implicitGraph.addNode(b0);
         implicitGraph.addNode(b1);
-
-        //add edges derived from clauses (-3->4) and (3<-4) for 3or4
-        ArrayList<Literal> clauses_Literal = c.implies();  // returns edges - Start and end points in [Literal1_start,Literal1_end,Literal2_start,Literal2_end]
+        //if(clauses_Literal.get(0)==(a0)) System.out.println("yes 0 =0 ");// negation of first
+        //if(clauses_Literal.get(3)==(a1)) System.out.println("yes 1 =1 ");
+        //if(clauses_Literal.get(1)==(b0)) System.out.println("yes 2=0 ");
+        //if(clauses_Literal.get(2)==(b1)) System.out.println("yes 3=0 ");
+        //add edges derived from clauses (-3->4) and (3<-4) for 3or4 neg.a,
         implicitGraph.addEdge(clauses_Literal.get(0), clauses_Literal.get(1));
         implicitGraph.addEdge(clauses_Literal.get(2), clauses_Literal.get(3));
 
