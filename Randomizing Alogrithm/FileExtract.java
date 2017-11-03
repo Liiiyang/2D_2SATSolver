@@ -1,7 +1,12 @@
+import org.omg.CORBA.Environment;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Li Yang on 1/11/2017.
@@ -24,19 +29,14 @@ public class FileExtract {
     public static void main(String[] args) throws IOException, InvalidInputException {
         String filetype;
         String line=null;
-        String path="C:\\Users\\Li Yang\\Desktop\\test4.cnf";
-
-
+        String path="C:\\Users\\Li Yang\\Desktop\\test1.cnf";
         try{
+            ArrayList<Integer> list = new ArrayList<>();
             FileReader file = new FileReader(path);
             BufferedReader bfile = new BufferedReader(file);
             line = bfile.readLine();
-
             //varibles for Sat
-            int lita, litb;
-            String[][] Clauses = new String[numClauses][2];
-            //RandomizerTest r = new RandomizerTest(Clauses,numVar);
-            Randomizer ranDom = new Randomizer(numVar);
+            int lita, litb,litc;
             while(line != null){
                 // Comment Line
                 if(line.charAt(0) == 'c') {
@@ -53,30 +53,56 @@ public class FileExtract {
                     }
                 }
                 //Literals and Clauses
-                else{
-                    String[] current=line.split(" ");
-                    lita =Integer.parseInt(current[0]);
-                    litb=Integer.parseInt(current[1]);
-                    String litA = Integer.toString(lita);
-                    String litB = Integer.toString(litb);
-                    String[] clause = new String[2];
-                    clause[0] = litA;
-                    clause[1] = litB;
-                    for (int i = 0;i<Clauses.length;i++){
-                        Clauses[i] = clause;
-                    }
-                    ranDom.addline(lita,litb);
-                }
-                line=bfile.readLine();
-            }
+                else {
+                    String[] current = line.split(" ");
+                    lita = Integer.parseInt(current[0]);
+                    litb = Integer.parseInt(current[1]);
+                    litc = Integer.parseInt(current[2]);
+                    //ranDom.addline(lita,litb);
+                    list.add(lita);
+                    list.add(litb);
+                    list.add(litc);
 
+                    }
+                line = bfile.readLine();
+            }
+            file.close();
+            bfile.close();
+            ArrayList<String[]> a = new ArrayList<>();
+            ArrayList<Integer> IntofClause = new ArrayList<>();
+            for(int item:list) {
+                if(item != 0){
+
+                    try {
+                        IntofClause.add(item);
+                    } catch (NumberFormatException nfe) {
+                        System.out.println("cannot parse this: " + item);
+                    }
+                } else if (item == 0){
+                    String[] clause = new String[IntofClause.size()];
+                    for (int i=0; i<clause.length; i++){
+                        clause[i]=Integer.toString(IntofClause.get(i));
+                    }
+                    a.add(clause);
+                    IntofClause.clear();
+
+                }
+            }
+            String[][] Clauses = new String[a.size()][];
+            for (int j=0; j<Clauses.length; j++){
+                Clauses[j]=a.get(j);
+            }
+            //System.out.println(Arrays.deepToString(Clauses));
+            RandAlgorithm r = new RandAlgorithm(Clauses,numVar);
+            System.out.println(numVar);
             long started = System.nanoTime();
-            ranDom.GenSol();
+            r.GenSol();
             long time = System.nanoTime();
             long timeTaken= time - started;
             System.out.println("Time:" + timeTaken/1000000.0 + "ms");
-            //r.run();
+
         }
+
         catch(FileNotFoundException e){
             System.out.println("Error: File Not Found. Please Load File");
         }
