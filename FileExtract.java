@@ -26,7 +26,7 @@ public class FileExtract {
     public static void main(String[] args) throws IOException,InvalidInputException {
         String filetype;
         String line=null;
-        String path="C:\\Users\\Kenny\\Desktop\\Sutd Year 2 Term4\\Introduction To Infosystem\\2d\\test.cnf";
+        String path="C:\\Users\\Kenny\\Downloads\\test.cnf";
 
         try {
             FileReader file = new FileReader(path);
@@ -67,9 +67,9 @@ public class FileExtract {
 
             System.out.println("__________Graph Test_________");
             for (Literal a1 : implicitGraph.getAdjList().keySet()) {
-                System.out.println("\nkeys:" + a1.getValue()+a1.getP());
+                System.out.println("\nStart:" + a1.getValue()+a1.getP());
                 for (Literal xtest : implicitGraph.getAdjList().get(a1)) {
-                    System.out.print(" v:" + xtest.getValue()+" "+xtest.getP());
+                    System.out.println(" -> End:" + xtest.getValue()+" "+xtest.getP());
                 }
             }
             System.out.println("\n_________________________________");
@@ -77,7 +77,11 @@ public class FileExtract {
 
 
                 twoSat.makeSCC(revGraph, implicitGraph);
-                System.out.println(TwoSATSolver.isSat());
+            long started = System.nanoTime();
+
+            long time = System.nanoTime();
+            long timeTaken= time - started;
+            System.out.println("Time:" + timeTaken/1000000.0 + "ms");
         }
         catch(FileNotFoundException e){
             System.out.println("Error: File Not Found. Please Load File");
