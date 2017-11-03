@@ -103,7 +103,7 @@ public class TwoSATSolver {
 
         //****trouble shooting printing revGraph inputs
 
-        revGraph.addEdge(clauses_Literal.get(2), clauses_Literal.get(3));
+        //revGraph.addEdge(clauses_Literal.get(2), clauses_Literal.get(3));
         /*
         System.out.println(" adding edge :"+clauses_Literal.get(1).getValue()+""+clauses_Literal.get(1).getP());
         System.out.println(" to :"+clauses_Literal.get(0).getValue()+""+clauses_Literal.get(0).getP());

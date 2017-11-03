@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class Graph {
     /* Maps the Nodes in the graph to sets of outgoing edges */
-    private HashMap<Literal, Set<Literal>> AdjList = new HashMap<>();
+    private HashMap<Literal, ArrayList<Literal>> AdjList = new HashMap<>();
 
     /* Adds a new node to the graph, returns false if the node already exists */
     public boolean addNode(Literal node) {
@@ -23,7 +23,7 @@ public class Graph {
             return false;
         }
         //adds a new node otherwise
-        AdjList.put(node, new HashSet<>());
+        AdjList.put(node, new ArrayList<>());
         return true;
     }
 
@@ -40,7 +40,7 @@ public class Graph {
     }
     // reset visited for revGraph
 
-    public HashMap<Literal, Set<Literal>> getAdjList() {
+    public HashMap<Literal, ArrayList<Literal>> getAdjList() {
         return AdjList;
     }
     public void resetAllVisited(){

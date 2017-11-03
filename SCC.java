@@ -52,6 +52,7 @@ public class SCC {
         rootVertex.visited();
         scc.add(rootVertex);
         for (Literal neighbourVertex:revGraph.getAdjList().get(rootVertex)){
+
             if(!neighbourVertex.isVisited()){
                 //Added to see which neighbours SCCList visit entering the nodes of reversed graph
                 System.out.println(neighbourVertex.getValue()+" "+ neighbourVertex.getP()+"   Visit");
