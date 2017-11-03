@@ -45,9 +45,9 @@ public class SCC {
     }
     public ArrayList<Literal> getSCCList(Graph revGraph,Literal rootVertex,ArrayList<Literal> scc){
         //System.out.println(rootVertex.getValue()+" " + rootVertex.getP()+"  root");
-        for(Literal x:revGraph.getAdjList().keySet()){
-            System.out.print(x.isVisited());}
-        System.out.print("\n");
+        //for(Literal x:revGraph.getAdjList().keySet()){
+         //   System.out.print(x.isVisited());}
+        //System.out.print("\n");
 
         rootVertex.visited();
         scc.add(rootVertex);
