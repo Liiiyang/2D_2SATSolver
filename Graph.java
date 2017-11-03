@@ -23,7 +23,7 @@ public class Graph {
             return false;
         }
         //adds a new node otherwise
-        AdjList.put(node, new ArrayList<>());
+        AdjList.put(node, new ArrayList<Literal>());
         return true;
     }
 

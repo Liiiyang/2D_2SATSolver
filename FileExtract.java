@@ -76,7 +76,7 @@ public class FileExtract {
             ////
 
 
-                twoSat.makeSCC(revGraph, implicitGraph);
+                twoSat.makeSCC(implicitGraph,revGraph);
             long started = System.nanoTime();
 
             long time = System.nanoTime();

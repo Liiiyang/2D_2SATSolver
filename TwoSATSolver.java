@@ -114,7 +114,7 @@ public class TwoSATSolver {
     }
     public void makeSCC(Graph implicitGraph , Graph revGraph) {
         SCC sccTest=new SCC();
-        sccTest.runSCC(revGraph,implicitGraph);
+        sccTest.runSCC(implicitGraph,revGraph);
     }
 }
 
