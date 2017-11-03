@@ -6,6 +6,10 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 
 public class RandAlgorithm {
+    /*
+    Create a Hashmap to store the literals and randomly assign Boolean Variable to it.
+    0 - False, 1 - True
+     */
     HashMap<String, Integer> truthassign = new HashMap<String, Integer>();
     String[][] Clauses;
     int clauseIndex;
@@ -14,9 +18,9 @@ public class RandAlgorithm {
 
     RandAlgorithm(String[][] Clauses, int numofVar) {
         this.numofVar = numofVar;
-        randomLiterals(this.numofVar);
         this.Clauses = Clauses;
         this.clauseIndex = 0;
+        randomLiterals(this.numofVar);
     }
 
     public int randomBool() {
@@ -38,6 +42,8 @@ public class RandAlgorithm {
             return true;
         }
     }
+
+    //Randomly chooses a Literal in the Clause
 
     public void ChangeLit(int clauseIndex) {
         int literalValue;
