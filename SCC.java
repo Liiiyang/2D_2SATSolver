@@ -72,7 +72,7 @@ public class SCC {
         ArrayList<Literal> scc=new ArrayList<>();
         ArrayList<ArrayList<Literal>> totalSccArrays=new ArrayList<ArrayList<Literal>>();
         System.out.println("__\n\n________finding SCC________\n\n____");
-        while(stack1.empty()==false) {
+        while(!stack1.empty()) {
             Literal first= stack1.pop();
             //TROUBLE SHOOTING CASES printing SCC arrays
             System.out.println(" Literal from sccArrays\nFirst : "+first.getValue()+" "+first.getP());
@@ -87,6 +87,7 @@ public class SCC {
                 System.out.println("Removed:"+ n.getValue()+" "+n.getP());
                 stack1.remove(n);
             }
+            scc.clear();
         }
         return totalSccArrays;
     }
@@ -149,11 +150,12 @@ public class SCC {
         Collections.reverse(newList);
         for (int a_1=1;a_1<answer.length;a_1++)
         {
-            answer[a_1]=2; //setting to 2 so we can ensure there multiple setting of values
+            answer[a_1]=3; //setting to 2 so we can ensure there multiple setting of values
         }
         for(ArrayList<Literal> x:newList){
                 for (Literal y : x) {
-                    if(answer[y.getValue()]==2) {//can change only when unvisited: denoted by 2
+                    if(answer[1]==3) {//can change only when unvisited: denoted by 2
+                        System.out.println("hifewhife");
                         if (y.getP()) {
                             answer[y.getValue()] = 1;
                         } else {
@@ -165,10 +167,10 @@ public class SCC {
         }
         for (int a_1=1;a_1<answer.length;a_1++)
         {
-            if (answer[a_1]==2)
-            {
-                answer[a_1]=1; //changing all unvisited to default true
-            }
+//            if (answer[a_1]==2)
+  //          {
+    //            answer[a_1]=1; //changing all unvisited to default true
+      //      }
             System.out.print(answer[a_1]+" ");
 
         }
